@@ -63,10 +63,6 @@ Third Tab:
 ngrok localhost 3006
 ```
 
-## License
-
-MIT
-
 **Reach out to LSports today to start using SEC on your product today at sales@lsports.eu**
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
