@@ -1,6 +1,7 @@
 import fastify from "fastify";
 import router from "./router";
 import fastifyEnv from "@fastify/env";
+import fastifyFormBody from "@fastify/formbody";
 import { envOptions } from "./config";
 
 const server = fastify({
@@ -9,6 +10,9 @@ const server = fastify({
 });
 
 // Middleware: Router
-server.register(router).register(fastifyEnv, envOptions);
+server
+  .register(fastifyFormBody)
+  .register(fastifyEnv, envOptions)
+  .register(router);
 
 export default server;

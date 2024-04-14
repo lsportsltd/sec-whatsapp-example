@@ -1,20 +1,46 @@
+import { Fixture } from "./interfaces";
+
 // this should be persisted in a database in a real-world application
-let state: State = {
-  sessionId: null,
+let sessionStore: {
+  randomFixtures: Fixture[];
+  sessions: { [i: string]: UserSession };
+} = {
   randomFixtures: [],
-  selectedFixture: null,
+  sessions: {},
 };
 
-export interface State {
-  sessionId: string | null;
-  randomFixtures: any[];
-  selectedFixture: any | null;
+export interface UserSession {
+  callerId: string | null;
+  selectedFixture: Fixture | null;
 }
 
-export function getState() {
-  return state;
+export function getSession(callerId: string) {
+  return sessionStore.sessions[callerId];
 }
 
-export function updateState(newState: Partial<State>) {
-  state = { ...state, ...newState };
+export function newSession(callerId: string) {
+  sessionStore.sessions[callerId] = {
+    callerId,
+    selectedFixture: null,
+  };
+
+  return sessionStore.sessions[callerId];
+}
+
+export function getHighlightedFixturesFromState() {
+  return sessionStore.randomFixtures;
+}
+
+export function updateHighlightedFixtures(fixtures: Fixture[]) {
+  sessionStore.randomFixtures = [...fixtures];
+  return sessionStore.randomFixtures;
+}
+
+export function updateSession(
+  callerId: string,
+  partialSession: Partial<UserSession>
+) {
+  const state = sessionStore.sessions[callerId];
+  sessionStore.sessions[callerId] = { ...state, ...partialSession };
+  return sessionStore.sessions[callerId];
 }

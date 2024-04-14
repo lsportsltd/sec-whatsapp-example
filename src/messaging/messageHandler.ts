@@ -1,16 +1,27 @@
 import client, { Twilio } from "twilio";
 import { MessageListInstanceCreateOptions } from "twilio/lib/rest/api/v2010/account/message";
-import { RandomFixtures } from "../interfaces";
+import { Fixture } from "../interfaces";
+
+import {
+  getHighlightedFixturesFromState,
+  getSession,
+  newSession,
+  updateHighlightedFixtures,
+  updateSession,
+} from "../state";
+
+import {
+  getHighlightedFixtures,
+  sendChatMessage,
+} from "../sports-expert-chat/secHandler";
 
 let accountSid = process.env.TWILIO_ACCOUNT_SID;
 let authToken = process.env.TWILIO_AUTH_TOKEN;
-let secApiToken = process.env.SEC_API_TOKEN;
 let messagesClient: Twilio | null = null;
 
 export function init() {
   accountSid = process.env.TWILIO_ACCOUNT_SID;
   authToken = process.env.TWILIO_AUTH_TOKEN;
-  secApiToken = process.env.SEC_API_TOKEN;
 
   if (!accountSid || !authToken)
     throw new Error("Twilio credentials not provided");
@@ -28,43 +39,60 @@ export async function sendMessage(msg: MessageListInstanceCreateOptions) {
   });
 }
 
-export async function getRandomFixtures(): Promise<RandomFixtures> {
-  const response = await fetch(
-    "https://sec-gw.lsports.eu/fixtures/api/v1/fixtures",
-    {
-      headers: { authorization: `Bearer ${secApiToken}` },
-    }
+export function buildRandomFixturesMsg(fixtures: Fixture[]) {
+  const fixturesMsg = fixtures.map(
+    (fixture, i) =>
+      `${i + 1}. ${fixture.participants[0].name} vs ${
+        fixture.participants[1].name
+      },at ${new Date(fixture.date).toString()}`
   );
 
-  return response.json() as Promise<RandomFixtures>;
+  return (
+    `Please select the fixture you want to bet on by replying with the number of the fixture\n` +
+    fixturesMsg.join("\n")
+  );
 }
 
-// (async () => {
-//   // get random fixture
-//   try {
-//     randomFixture = await getRandomFixtures();
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
+export async function handleMessage(msg: string, from: string) {
+  let response =
+    "Please select a fixture by replying with the number of the fixture, or press `#` to restart the session";
+  let currentSession = getSession(from);
+  let fixtures = getHighlightedFixturesFromState();
 
-//   const fixturesMsg = randomFixture.fixtures.map(
-//     (fixture, i) =>
-//       `${i + 1}. ${fixture.participants[0].name} vs ${
-//         fixture.participants[1].name
-//       },at ${new Date(fixture.date).toString()}`
-//   );
+  // if there are no fixtures, get some from the API
+  if (!fixtures.length) {
+    const randomFixtures = await getHighlightedFixtures();
+    fixtures = updateHighlightedFixtures(randomFixtures.fixtures);
+  }
 
-//   const fullFixtureSelectionMsg =
-//     `Please select the fixture you want to bet on by replying with the number of the fixture\n` +
-//     fixturesMsg.join("\n");
+  // if the user is new, create a new session for them and send them the fixtures
+  if (!currentSession || msg === "#") {
+    currentSession = newSession(from);
+    return buildRandomFixturesMsg(fixtures);
+  }
 
-//   const msgResponse = await client.messages.create({
-//     body: fullFixtureSelectionMsg,
-//     from: "whatsapp:+14155238886",
-//     to: "whatsapp:+972535330826",
-//   });
-//   console.log(msgResponse);
+  // we already have a selected fixture, lets talk with the LLM
+  if (currentSession?.selectedFixture) {
+    const chatResponse = await sendChatMessage(
+      msg,
+      currentSession.selectedFixture
+    );
 
-//   sessionId = msgResponse.sid;
-// })();
+    return `${chatResponse.message.text}`;
+  }
+
+  // if the user has not selected a fixture, parse the message and select the fixture
+  if (parseInt(msg) > 0 && parseInt(msg) <= fixtures.length) {
+    const selectedFixture = fixtures[parseInt(msg)];
+    currentSession = updateSession(from, { selectedFixture });
+    response = `You have selected ${selectedFixture.participants[0].name} vs ${selectedFixture.participants[1].name}, at ${new Date(selectedFixture.date).toString()}.\nAsk me any question about the fixture, for example "Which team will win?" or "How many goals will be scored?"\nYou can always return to the fixture selection list by pressing "#"`;
+  } else {
+    return `Invalid selection. Please select a fixture by replying with the number of the fixture, or press "#" to restart the session`;
+  }
+
+  if (!currentSession.selectedFixture) {
+    return buildRandomFixturesMsg(fixtures);
+  }
+
+  return response;
+}

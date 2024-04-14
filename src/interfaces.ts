@@ -40,3 +40,38 @@ export interface Player extends Entity {
 export interface League extends Entity {}
 
 export interface Sport extends Entity {}
+
+export interface Tip {
+  id: string;
+  betId: string;
+  fixtureId: string;
+  marketId: string;
+  playerId?: string | null;
+  lSportsFixtureId: number;
+  lSportsLocationId: number;
+  lSportsSportId: number;
+  lSportsPlayerId?: number | null;
+  tip?: string;
+}
+
+export interface ChatAnswer {
+  error: any;
+  message: ChatAnswerMessage;
+  relatedQuestions: string;
+}
+
+export interface ChatAnswerMessage {
+  betId: string;
+  fixtureId: string;
+  id: string;
+  marketId: string;
+  playerId: string;
+  status: string;
+  text: string;
+  timestamp: string;
+  type: string;
+  lSportsFixtureId: number;
+  lSportsLocationId: number;
+  lSportsPlayerId: number;
+  lSportsSportId: number;
+}

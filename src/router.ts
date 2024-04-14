@@ -1,8 +1,8 @@
 import { FastifyInstance } from "fastify";
-import initController from "./controller/initController";
 import indexController from "./controller/indexController";
+import messageController from "./controller/messageController";
 
 export default async function router(fastify: FastifyInstance) {
-  fastify.register(initController, { prefix: "/api/v1/init" });
+  fastify.register(messageController, { prefix: "/api/v1/message" });
   fastify.register(indexController, { prefix: "/" });
 }
