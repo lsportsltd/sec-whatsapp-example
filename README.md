@@ -1,4 +1,4 @@
-[![LSports](https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoiYXdlc29tZS10bHZcL2ZpbGVcL0dja0hYcWtiRzlKWGQ1ejZrcXQ2LnBuZyJ9:awesome-tlv:-dHWNuBOwqlf3U61X71QIqjmVAsFomQE0D3YGrGd5CU?width=2400)](https://www.lsports.eu)
+[![LSports](https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoiYXdlc29tZS10bHZcL2ZpbGVcL0p3S3dweU5Ub2pDQld3d3l5YTdkLnBuZyJ9:awesome-tlv:s5wJjkZJhYz_mhMs6SmsJeoRZWoxuvrOPGrNMUQP1tU?width=2400)](https://www.lsports.eu)
 # Sports Expert Chat
 ## _Whatsapp Demo_
 
@@ -62,8 +62,6 @@ Third Tab:
 ```bash
 ngrok localhost 3006
 ```
-
-## Development
 
 ## License
 
