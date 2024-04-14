@@ -6,6 +6,8 @@ LSports is introducing a revolutionary AI-based large language model to the worl
 
 SEC provides actionable insights and guidance to bettors by offering data-driven tips, essential event details, live updates, weather forecasts, and comprehensive statistics. This empowers end-users to make informed decisions and enhances their loyalty to the platform, eventually leading to higher turnover rates for bookies.
 
+[![LSports SEC](https://github.com/lsportsltd/sec-whatsapp-example/assets/example.png)](https://www.lsports.eu/sec/)
+
 ## Features
 
 - ChatGPT like (LLM), most knowledgeable sports commentator based on AI.
