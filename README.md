@@ -1,12 +1,12 @@
 [![LSports](https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoiYXdlc29tZS10bHZcL2ZpbGVcL0p3S3dweU5Ub2pDQld3d3l5YTdkLnBuZyJ9:awesome-tlv:s5wJjkZJhYz_mhMs6SmsJeoRZWoxuvrOPGrNMUQP1tU?width=2400)](https://www.lsports.eu)
 # Sports Expert Chat
-## _Whatsapp Demo_
+## _WhatsApp Demo_
 
 LSports is introducing a revolutionary AI-based large language model to the world of sports betting with SEC (Sports Expert Chat). Powered by technology similar to ChatGPT, SEC is a cutting-edge interactive chatbot and sports data hub designed to operate as a personal sports advisor for bettors. It's specifically crafted to assist sportsbooks in addressing the challenge of attracting new customers and increasing retention rates.
 
 SEC provides actionable insights and guidance to bettors by offering data-driven tips, essential event details, live updates, weather forecasts, and comprehensive statistics. This empowers end-users to make informed decisions and enhances their loyalty to the platform, eventually leading to higher turnover rates for bookies.
 
-[![LSports SEC](https://github.com/lsportsltd/sec-whatsapp-example/assets/example.png)](https://www.lsports.eu/sec/)
+[![LSports SEC](https://github.com/lsportsltd/sec-whatsapp-example/blob/main/assets/example.png)](https://www.lsports.eu/sec/)
 
 ## Features
 
@@ -24,7 +24,7 @@ This demo uses a number of open source projects to work properly:
 - [node.js] - evented I/O for the backend
 - [ngrok] - local network tunneling
 
-And [Twilio](https://twilio.com) as the communication platform that integrates with Whatsapp.
+And [Twilio](https://twilio.com) as the communication platform that integrates with WhatsApp.
 
 ## Prerequisites
 
