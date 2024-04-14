@@ -24,6 +24,18 @@ This demo uses a number of open source projects to work properly:
 
 And [Twilio](https://twilio.com) as the communication platform that integrates with Whatsapp.
 
+## Prerequisites
+
+To use this demo, you need to create a sandbox account on Twilio. Follow these steps:
+
+1. Go to the [Twilio website](https://www.twilio.com/) and sign up for an account if you don't have one already.
+2. Once you're logged in, navigate to the [Twilio Console](https://www.twilio.com/console).
+3. In the left sidebar, click on "Messaging" and then select "Try it out" and then "Send a WhatsApp message".
+4. Follow the steps, create a sandbox number and verify.
+5. Go to "Sandbox settings", and in the "When a message comes in" field put the ngrok tunnel url, and for the "Method" use "POST".
+
+You will also need a working Sports Expert Chat account, which you can get from our sales team here at LSports, contact them via sales@lsports.eu and ask for one.
+
 ## Installation
 
 This demo requires [Node.js](https://nodejs.org/) v18+ to run.
@@ -62,6 +74,9 @@ Third Tab:
 ```bash
 ngrok localhost 3006
 ```
+
+Create a `.env` file in the root of the project, use the same keys you have in `.env.example` and put in them the values from Twilio and LSports SEC.
+Enjoy!
 
 **Reach out to LSports today to start using SEC on your product today at sales@lsports.eu**
 
