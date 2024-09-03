@@ -75,8 +75,11 @@ export async function handleMessage(msg: string, from: string) {
   if (currentSession?.selectedFixture) {
     const chatResponse = await sendChatMessage(
       msg,
-      currentSession.selectedFixture
+      currentSession.selectedFixture,
+      currentSession.history
     );
+
+    currentSession.history = chatResponse.history;
 
     return `${chatResponse.message.text}`;
   }
