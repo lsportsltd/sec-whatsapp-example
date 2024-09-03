@@ -12,7 +12,7 @@ let sessionStore: {
 export interface UserSession {
   callerId: string | null;
   selectedFixture: Fixture | null;
-  history: { [key: string]: string[] };
+  history: Record<string, string[]>;
 }
 
 export function getSession(callerId: string) {
