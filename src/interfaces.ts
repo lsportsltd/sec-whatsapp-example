@@ -58,6 +58,7 @@ export interface ChatAnswer {
   error: any;
   message: ChatAnswerMessage;
   relatedQuestions: string;
+  history: { [key: string]: string[] };
 }
 
 export interface ChatAnswerMessage {
