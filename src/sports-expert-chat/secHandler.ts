@@ -30,7 +30,7 @@ export async function getHighlightedFixtures(): Promise<RandomFixtures> {
 }
 
 export async function sendChatMessage(
-msg: string, fixture: Fixture, history: { [key: string]: string[]; }): Promise<ChatAnswer> {
+msg: string, fixture: Fixture, history: Record<string, string[]>): Promise<ChatAnswer> {
   const body = JSON.stringify({ Prompt: msg, Fixture: fixture, History: history });
   const response = await fetch("https://sec-gw.lsports.eu/chat/api/v2/chat", {
     headers: {
